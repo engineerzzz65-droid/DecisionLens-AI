@@ -19,30 +19,39 @@ export const Results: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <button
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-4"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </button>
-          <div className="flex items-center gap-3">
-            <CheckCircle className="w-8 h-8 text-green-500" />
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Your Results</h1>
-              <p className="text-gray-600">
-                Decision: {decision.title}
-              </p>
+    <div className="min-h-screen bg-slate-50 py-10">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <button
+              onClick={() => navigate('/')}
+              className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors mb-4 sm:mb-0"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Home
+            </button>
+            <div className="flex items-center gap-3">
+              <CheckCircle className="w-8 h-8 text-emerald-500" />
+              <div>
+                <h1 className="text-3xl font-bold text-slate-900">Your Results</h1>
+                <p className="text-slate-600">Decision: {decision.title}</p>
+              </div>
             </div>
           </div>
+
+          <div className="info-pill">Decision analysis ready</div>
         </div>
 
-        {/* Report */}
-        <ClarityReport />
+        <div className="grid gap-6">
+          <div className="section-card">
+            <h2 className="text-xl font-semibold text-slate-900 mb-2">Summary insights</h2>
+            <p className="text-slate-600 leading-relaxed">Review your decision direction, explore the most important tradeoffs, and use the report to share the reasoning behind your choices.</p>
+          </div>
+
+          <div className="section-card">
+            <ClarityReport />
+          </div>
+        </div>
       </div>
     </div>
   );

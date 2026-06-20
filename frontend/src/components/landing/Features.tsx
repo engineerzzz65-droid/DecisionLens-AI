@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Users, Shield, ChartBar, Clock, Brain } from 'lucide-react';
+import { Sparkles, Users, Shield, BarChart, Clock, Brain } from 'lucide-react';
 
 const features = [
   {

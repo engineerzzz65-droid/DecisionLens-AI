@@ -9,113 +9,81 @@ export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
-    <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
+        <div className="flex h-20 items-center justify-between">
+          <Link to="/" className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-lg shadow-primary-100/70">
               <Brain className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">DecisionLens</span>
-            <span className="text-xs bg-primary-100 text-primary-700 px-2 py-0.5 rounded-full font-medium">
-              AI
-            </span>
+            <div>
+              <div className="text-lg font-semibold text-slate-900">DecisionLens</div>
+              <div className="text-xs uppercase tracking-[0.25em] text-primary-600 font-semibold">AI clarity</div>
+            </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link
-              to="/"
-              className="flex items-center gap-1 text-gray-600 hover:text-primary-600 transition-colors text-sm font-medium"
-            >
-              <Home className="w-4 h-4" />
-              Home
-            </Link>
-            {user && (
-              <Link
-                to="/decision"
-                className="flex items-center gap-1 text-gray-600 hover:text-primary-600 transition-colors text-sm font-medium"
+          <nav className="hidden lg:flex items-center gap-8">
+            <Link to="/" className="text-sm font-medium text-slate-600 hover:text-primary-600 transition-colors">Home</Link>
+            <Link to="/decision" className="text-sm font-medium text-slate-600 hover:text-primary-600 transition-colors">New Decision</Link>
+            <Link to="/report" className="text-sm font-medium text-slate-600 hover:text-primary-600 transition-colors">Report</Link>
+          </nav>
+
+          <div className="hidden lg:flex items-center gap-3">
+            <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-2 text-sm text-slate-700">
+              <User className="w-4 h-4 text-primary-600" />
+              {user?.name || 'Guest'}
+            </span>
+            {user ? (
+              <button
+                onClick={() => {
+                  logout();
+                  navigate('/');
+                }}
+                className="text-sm font-semibold text-red-600 hover:text-red-700 transition-colors"
               >
-                <FileText className="w-4 h-4" />
-                New Decision
-              </Link>
+                Logout
+              </button>
+            ) : (
+              <button onClick={() => navigate('/decision')} className="btn-primary">Start Decision</button>
             )}
-            <div className="flex items-center gap-3 pl-3 border-l border-gray-200">
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-full">
-                <div className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center">
-                  <User className="w-3.5 h-3.5 text-primary-600" />
-                </div>
-                <span className="text-sm text-gray-700 font-medium">
-                  {user?.name || 'Guest'}
-                </span>
-              </div>
+          </div>
+
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="lg:hidden p-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 transition-colors"
+            aria-label="Toggle menu"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        </div>
+
+        {isMenuOpen && (
+          <div className="lg:hidden py-4 border-t border-slate-200">
+            <nav className="flex flex-col gap-3">
+              <Link to="/" onClick={() => setIsMenuOpen(false)} className="rounded-2xl px-4 py-3 text-slate-700 hover:bg-slate-100 transition-colors">Home</Link>
+              <Link to="/decision" onClick={() => setIsMenuOpen(false)} className="rounded-2xl px-4 py-3 text-slate-700 hover:bg-slate-100 transition-colors">New Decision</Link>
+              <Link to="/report" onClick={() => setIsMenuOpen(false)} className="rounded-2xl px-4 py-3 text-slate-700 hover:bg-slate-100 transition-colors">Report</Link>
+              <button
+                onClick={() => {
+                  navigate('/decision');
+                  setIsMenuOpen(false);
+                }}
+                className="rounded-2xl bg-primary-600 px-4 py-3 text-sm font-semibold text-white hover:bg-primary-700 transition-colors"
+              >
+                Start Decision
+              </button>
               {user && (
                 <button
                   onClick={() => {
                     logout();
                     navigate('/');
+                    setIsMenuOpen(false);
                   }}
-                  className="text-gray-400 hover:text-red-600 transition-colors"
-                  title="Logout"
+                  className="rounded-2xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-600 hover:bg-red-100 transition-colors"
                 >
-                  <LogOut className="w-4 h-4" />
+                  Logout
                 </button>
               )}
-            </div>
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <Menu className="w-5 h-5 text-gray-600" />
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
-            <nav className="flex flex-col gap-2">
-              <Link
-                to="/"
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
-              >
-                <Home className="w-4 h-4" />
-                Home
-              </Link>
-              {user && (
-                <Link
-                  to="/decision"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
-                >
-                  <FileText className="w-4 h-4" />
-                  New Decision
-                </Link>
-              )}
-              <div className="flex items-center justify-between px-4 py-2 border-t border-gray-100 mt-2 pt-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center">
-                    <User className="w-3.5 h-3.5 text-primary-600" />
-                  </div>
-                  <span className="text-sm text-gray-700">{user?.name || 'Guest'}</span>
-                </div>
-                {user && (
-                  <button
-                    onClick={() => {
-                      logout();
-                      navigate('/');
-                      setIsMenuOpen(false);
-                    }}
-                    className="text-red-500 hover:text-red-600 text-sm font-medium"
-                  >
-                    Logout
-                  </button>
-                )}
-              </div>
             </nav>
           </div>
         )}

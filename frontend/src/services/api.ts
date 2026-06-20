@@ -36,31 +36,31 @@ apiClient.interceptors.response.use(
 export const api = {
   decisions: {
     create: (data: { user_id: number; title: string; description: string }) =>
-      apiClient.post('/decisions/', data),
-    get: (id: number) => apiClient.get(`/decisions/${id}`),
+      apiClient.post<any, any>('/decisions/', data),
+    get: (id: number) => apiClient.get<any, any>(`/decisions/${id}`),
     update: (id: number, data: { status?: string; resolved_at?: string }) =>
-      apiClient.patch(`/decisions/${id}`, data),
-    getUserDecisions: (userId: number) => apiClient.get(`/decisions/user/${userId}`),
+      apiClient.patch<any, any>(`/decisions/${id}`, data),
+    getUserDecisions: (userId: number) => apiClient.get<any, any>(`/decisions/user/${userId}`),
   },
   chat: {
     startDiagnostic: (decisionId: number) =>
-      apiClient.post('/chat/diagnostic', { decision_id: decisionId }),
+      apiClient.post<any, any>('/chat/diagnostic', { decision_id: decisionId }),
     sendMessage: (decisionId: number, message: string) =>
-      apiClient.post('/chat/message', { decision_id: decisionId, message }),
+      apiClient.post<any, any>('/chat/message', { decision_id: decisionId, message }),
     getTradeoffs: (decisionId: number) =>
-      apiClient.post(`/chat/tradeoffs/${decisionId}`),
+      apiClient.post<any, any>(`/chat/tradeoffs/${decisionId}`),
   },
   simulation: {
     run: (data: { decision_id: number; options?: string[] }) =>
-      apiClient.post('/simulation/run', data),
+      apiClient.post<any, any>('/simulation/run', data),
     getScenarios: (decisionId: number) =>
-      apiClient.get(`/simulation/${decisionId}/scenarios`),
+      apiClient.get<any, any>(`/simulation/${decisionId}/scenarios`),
   },
   report: {
     generate: (decisionId: number) =>
-      apiClient.post('/report/generate', { decision_id: decisionId }),
+      apiClient.post<any, any>('/report/generate', { decision_id: decisionId }),
     exportPDF: (decisionId: number) =>
-      apiClient.post('/report/export-pdf', { decision_id: decisionId }, {
+      apiClient.post<any, any>('/report/export-pdf', { decision_id: decisionId }, {
         responseType: 'blob',
       }).then((response) => {
         // Create download link

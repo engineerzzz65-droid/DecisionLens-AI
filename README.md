@@ -1,139 +1,142 @@
 # DecisionLens AI
 
-An AI-powered life decision simulator and second-opinion reasoning system.
+DecisionLens AI is a structured decision support platform that combines AI-guided analysis, scenario simulation, and tradeoff discovery to help you make clearer, more confident decisions.
 
-## Overview
+## What it does
 
-DecisionLens AI helps you make better life decisions by:
-- Providing structured decision analysis
-- Identifying hidden tradeoffs
-- Simulating multiple scenarios
-- Offering diverse perspectives
-- Creating clarity reports
+- Helps you define a decision clearly and capture what matters most.
+- Generates diagnostic insight questions to reveal values, constraints, and risk tolerance.
+- Identifies hidden tradeoffs and strengths across your options.
+- Simulates best, expected, and downside scenarios.
+- Presents multiple advisor perspectives to broaden your view.
+- Produces a concise clarity report for review or sharing.
 
-## Tech Stack
+## Tech stack
 
-- **Frontend**: React, TypeScript, Tailwind CSS, Recharts
-- **Backend**: FastAPI, Python
-- **AI Layer**: Gemini API, LangGraph, LangChain
-- **Database**: MySQL (local)
-- **PDF**: ReportLab
+- Frontend: React, TypeScript, Vite, Tailwind CSS
+- Backend: FastAPI, Python
+- AI / Langchain Layer: Gemini API, LangGraph, LangChain
+- Database: MySQL
+- PDF reporting: ReportLab
 
-## Installation
-
-### Prerequisites
+## Prerequisites
 
 - Python 3.11+
 - Node.js 20+
 - MySQL 8.0+
 - Docker (optional)
 
-### Local Development
+## Local development
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/decisionlens-ai.git
-   cd decisionlens-ai
+### 1. Clone the repository
 
-2. Set up the backend
+```bash
+git clone https://github.com/yourusername/decisionlens-ai.git
+cd decisionlens-ai
+```
 
-bash
+### 2. Backend setup
+
+```bash
 cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
+```
 
+### 3. Configure environment variables
 
-3. Configure environment variables
-Create a .env file in the backend directory:
+Create a `.env` file in `backend/` with values similar to the example below:
 
-text
+```env
 DATABASE_URL=mysql+pymysql://root:password@localhost:3306/decisionlens
 GEMINI_API_KEY=your_gemini_api_key_here
 SECRET_KEY=dev_secret_key_12345
+```
 
-4. Set up the database
+### 4. Create the database
 
-bash
+```bash
 mysql -u root -p
 CREATE DATABASE decisionlens;
+```
 
-5. Run the backend
+### 5. Run the backend
 
-bash
+```bash
 python run.py
-# Or
+```
+
+Alternatively, if you prefer Uvicorn:
+
+```bash
 uvicorn app.main:app --reload
+```
 
-6. Set up the frontend
+### 6. Run the frontend
 
-bash
+```bash
 cd ../frontend
 npm install
 npm run dev
+```
 
-7. Access the application
+### 7. Open the app
 
-Frontend: http://localhost:5173
+- Frontend: http://localhost:5173
+- Backend API docs: http://localhost:8000/docs
 
-Backend API: http://localhost:8000
+## Docker setup
 
-API Documentation: http://localhost:8000/docs
+If you want to run the app with Docker, use the provided compose file.
 
-Docker Deployment
-8. Set up environment variables
-
-bash
-export GEMINI_API_KEY=your_gemini_api_key_here
-
-9. Build and run
-
-bash
+```bash
 docker-compose up --build
+```
 
-## Project Structure
-text
+You may still need to configure environment variables for the backend service depending on your setup.
+
+## Project structure
+
+```text
 decisionlens-ai/
-├── backend/                 # FastAPI backend
+├── backend/                 # FastAPI backend and AI services
 │   ├── app/
-│   │   ├── agents/         # LangGraph agents
-│   │   ├── api/            # API routes
-│   │   ├── database/       # SQLAlchemy models
-│   │   ├── pdf/            # PDF generation
-│   │   └── services/       # Business logic
-│   └── requirements.txt
-├── frontend/                # React frontend
+│   │   ├── agents/         # LangGraph / AI agents
+│   │   ├── api/            # REST routes and request schemas
+│   │   ├── database/       # SQLAlchemy models and CRUD layers
+│   │   ├── pdf/            # PDF report generation
+│   │   └── services/       # AI helper logic and external integration
+│   ├── requirements.txt
+│   └── run.py
+├── frontend/                # React frontend application
 │   ├── src/
-│   │   ├── components/     # React components
-│   │   ├── contexts/       # React context providers
-│   │   ├── pages/          # Page components
-│   │   └── services/       # API services
+│   │   ├── components/     # UI components
+│   │   ├── contexts/       # app state providers
+│   │   ├── pages/          # route pages
+│   │   └── services/       # frontend API client
 │   └── package.json
 └── docker-compose.yml
+```
 
-Features
-Decision Intake: Describe your decision in your own words
+## Core features
 
-Diagnostic Questions: AI asks 5 questions about values, constraints, and risk tolerance
+- Decision intake and structure
+- Diagnostic question flow
+- Tradeoff discovery and comparison
+- Scenario simulation for risk and reward
+- Advisor perspectives for alternate viewpoints
+- Downloadable clarity report
 
-Tradeoff Discovery: Identify 3-5 hidden tradeoffs
+## Responsible AI guidance
 
-Scenario Simulation: Best, expected, and worst case for each option
+- AI is intended to support your thinking, not replace it.
+- The system highlights assumptions and confidence levels.
+- You always retain the final decision authority.
 
-Multi-Agent Perspectives: 5 advisor personas provide different viewpoints
+## Notes
 
-Uncertainty Mapping: Knowns, unknowns, and assumptions
-
-Clarity Report: Comprehensive PDF report with insights and next steps
-
-Responsible AI
-The AI NEVER decides for you
-
-Shows confidence levels and assumptions
-
-Displays multiple perspectives
-
-Highlights missing information
-
-You always make the final decision
+- Replace `yourusername` in the clone command with the actual GitHub repository owner.
+- Ensure your MySQL service is running and accessible before starting the backend.
+- If you make frontend changes, restart `npm run dev` to load updates.
 

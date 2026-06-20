@@ -148,24 +148,27 @@ export const UncertaintyMap: React.FC<UncertaintyMapProps> = ({ onComplete }) =>
         <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Confidence Scores</h3>
           <div className="space-y-3">
-            {uncertainty?.confidence_scores && Object.entries(uncertainty.confidence_scores).map(([key, value]) => (
-              <div key={key}>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm font-medium text-gray-700">
-                    {key.replace('_', ' ').charAt(0).toUpperCase() + key.replace('_', ' ').slice(1)}
-                  </span>
-                  <span className={`text-sm font-semibold ${getConfidenceColor(value as number)}`}>
-                    {value}%
-                  </span>
+            {uncertainty?.confidence_scores && Object.entries(uncertainty.confidence_scores).map(([key, value]) => {
+              const score = Number(value);
+              return (
+                <div key={key}>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-sm font-medium text-gray-700">
+                      {key.replace('_', ' ').charAt(0).toUpperCase() + key.replace('_', ' ').slice(1)}
+                    </span>
+                    <span className={`text-sm font-semibold ${getConfidenceColor(score)}`}>
+                      {score}%
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      className={`${getConfidenceBarColor(score)} h-2 rounded-full transition-all duration-500`}
+                      style={{ width: `${score}%` }}
+                    />
+                  </div>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className={`${getConfidenceBarColor(value as number)} h-2 rounded-full transition-all duration-500`}
-                    style={{ width: `${value}%` }}
-                  />
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
